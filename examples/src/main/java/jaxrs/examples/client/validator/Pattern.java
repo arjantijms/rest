@@ -16,8 +16,7 @@ import javax.validation.Payload;
 /**
  * @author sp106478
  */
-public class Pattern extends AnnotationLiteral<javax.validation.constraints.Pattern>
-        implements javax.validation.constraints.Pattern {
+public class Pattern extends AnnotationLiteral<javax.validation.constraints.Pattern> implements javax.validation.constraints.Pattern {
     private static final long serialVersionUID = 920895043686145958L;
 
     private String regexp;

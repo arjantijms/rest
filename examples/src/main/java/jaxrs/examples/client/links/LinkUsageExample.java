@@ -23,10 +23,8 @@ public class LinkUsageExample {
     public void testCLientSideLinks() {
         Client client = ClientBuilder.newClient();
 
-        Response current = client.target("http://examples.jax-rs-spec.com/current")
-                .request(MediaType.APPLICATION_XML).get();
+        Response current = client.target("http://examples.jax-rs-spec.com/current").request(MediaType.APPLICATION_XML).get();
 
-        Response next = client.target(current.getLink("next"))
-                .request(MediaType.APPLICATION_XML).get();
+        Response next = client.target(current.getLink("next")).request(MediaType.APPLICATION_XML).get();
     }
 }

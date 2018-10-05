@@ -34,12 +34,10 @@ import javax.ws.rs.core.UriBuilder;
 /**
  * Java SE bootstrap example using TLS customization.
  * <p>
- * This example demonstrates bootstrapping on Java SE platforms using HTTPS with
- * TLS 1.2 and a <em>particular</em> keystore. It explicitly sets the protocol
- * to {@code HTTPS} using port 443 and provides a {@link SSLContext} customized
- * to TLS v1.2 using a provided keystore file. The example will effectively
- * startup the {@link HelloWorld} application at the URL
- * {@code https://localhost:443/}.
+ * This example demonstrates bootstrapping on Java SE platforms using HTTPS with TLS 1.2 and a <em>particular</em>
+ * keystore. It explicitly sets the protocol to {@code HTTPS} using port 443 and provides a {@link SSLContext}
+ * customized to TLS v1.2 using a provided keystore file. The example will effectively startup the {@link HelloWorld}
+ * application at the URL {@code https://localhost:443/}.
  * </p>
  *
  * @author Markus KARG (markus@headcrashing.eu)
@@ -50,17 +48,12 @@ public final class TlsJavaSeBootstrapExample {
     /**
      * Runs this example.
      *
-     * @param args
-     *            KEYSTORE_PATH KEYSTORE_PASSWORD
-     * @throws GeneralSecurityException
-     *             in case JSSE fails
-     * @throws IOException
-     *             in case file access fails
-     * @throws InterruptedException
-     *             when process is killed
+     * @param args KEYSTORE_PATH KEYSTORE_PASSWORD
+     * @throws GeneralSecurityException in case JSSE fails
+     * @throws IOException in case file access fails
+     * @throws InterruptedException when process is killed
      */
-    public static final void main(final String[] args)
-            throws GeneralSecurityException, IOException, InterruptedException {
+    public static final void main(final String[] args) throws GeneralSecurityException, IOException, InterruptedException {
         final Application application = new HelloWorld();
 
         final Path keyStorePath = Paths.get(args[0]);
@@ -68,27 +61,21 @@ public final class TlsJavaSeBootstrapExample {
 
         final KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
         keyStore.load(Files.newInputStream(keyStorePath), passphrase);
-        final KeyManagerFactory keyManagerFactory = KeyManagerFactory
-                .getInstance(KeyManagerFactory.getDefaultAlgorithm());
+        final KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
         keyManagerFactory.init(keyStore, passphrase);
         final SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
         sslContext.init(keyManagerFactory.getKeyManagers(), null, null);
 
-        final JAXRS.Configuration requestedConfiguration = JAXRS.Configuration.builder().protocol("HTTPS")
-                .sslContext(sslContext).build();
+        final JAXRS.Configuration requestedConfiguration = JAXRS.Configuration.builder().protocol("HTTPS").sslContext(sslContext).build();
 
         JAXRS.start(application, requestedConfiguration).thenAccept(instance -> {
-            Runtime.getRuntime()
-                    .addShutdownHook(new Thread(() -> instance.stop()
-                            .thenAccept(stopResult -> System.out.printf("Stop result: %s [Native stop result: %s].%n",
-                                    stopResult, stopResult.unwrap(Object.class)))));
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> instance.stop()
+                    .thenAccept(stopResult -> System.out.printf("Stop result: %s [Native stop result: %s].%n", stopResult, stopResult.unwrap(Object.class)))));
 
             final Configuration actualConfigurarion = instance.configuration();
-            final URI uri = UriBuilder.newInstance().scheme(actualConfigurarion.protocol().toLowerCase())
-                    .host(actualConfigurarion.host()).port(actualConfigurarion.port())
-                    .path(actualConfigurarion.rootPath()).build();
-            System.out.printf("Instance %s running at %s [Native handle: %s].%n", instance, uri,
-                    instance.unwrap(Object.class));
+            final URI uri = UriBuilder.newInstance().scheme(actualConfigurarion.protocol().toLowerCase()).host(actualConfigurarion.host())
+                    .port(actualConfigurarion.port()).path(actualConfigurarion.rootPath()).build();
+            System.out.printf("Instance %s running at %s [Native handle: %s].%n", instance, uri, instance.unwrap(Object.class));
             System.out.println("Send SIGKILL to shutdown.");
         });
 

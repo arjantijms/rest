@@ -30,8 +30,8 @@ import org.junit.Test;
 public final class JAXRSTest {
 
     /**
-     * Installs a new {@code RuntimeDelegate} mock before each test case, as some
-     * test cases need to find a pristine <em>installed</em> RuntimeDelegate.
+     * Installs a new {@code RuntimeDelegate} mock before each test case, as some test cases need to find a pristine
+     * <em>installed</em> RuntimeDelegate.
      */
     @Before
     public final void setUp() {
@@ -39,8 +39,8 @@ public final class JAXRSTest {
     }
 
     /**
-     * Uninstalls the {@code RuntimeDelegate} mock after each test case to be sure
-     * that the <em>next</em> test case does not use a possibly cluttered instance.
+     * Uninstalls the {@code RuntimeDelegate} mock after each test case to be sure that the <em>next</em> test case does not
+     * use a possibly cluttered instance.
      */
     @After
     public final void tearDown() {
@@ -89,8 +89,7 @@ public final class JAXRSTest {
     }
 
     /**
-     * Assert that {@code Configuration.Builder}'s
-     * {@code from(external configuration)} bulk-loading method simply returns
+     * Assert that {@code Configuration.Builder}'s {@code from(external configuration)} bulk-loading method simply returns
      * {@code this}, but does nothing else, as it is a no-op implementation.
      *
      * @since 2.2
@@ -102,8 +101,7 @@ public final class JAXRSTest {
         final Object someExternalConfiguration = mock(Object.class);
 
         // when
-        final JAXRS.Configuration.Builder currentConfigurationBuilder = previousConfigurationBuilder
-                .from(someExternalConfiguration);
+        final JAXRS.Configuration.Builder currentConfigurationBuilder = previousConfigurationBuilder.from(someExternalConfiguration);
 
         // then
         assertThat(currentConfigurationBuilder, is(sameInstance(previousConfigurationBuilder)));
@@ -112,9 +110,8 @@ public final class JAXRSTest {
     }
 
     /**
-     * Assert that {@code Configuration.Builder}'s convenience methods delegate to
-     * its generic {@code property(name, value)} method using the <em>right</em>
-     * property name.
+     * Assert that {@code Configuration.Builder}'s convenience methods delegate to its generic {@code property(name, value)}
+     * method using the <em>right</em> property name.
      *
      * @since 2.2
      */
@@ -143,13 +140,12 @@ public final class JAXRSTest {
         verify(configurationBuilder).property(JAXRS.Configuration.PORT, somePortValue);
         verify(configurationBuilder).property(JAXRS.Configuration.ROOT_PATH, someRootPathValue);
         verify(configurationBuilder).property(JAXRS.Configuration.SSL_CONTEXT, someSSLContextValue);
-        verify(configurationBuilder).property(JAXRS.Configuration.SSL_CLIENT_AUTHENTICATION,
-                someSSLClientAuthenticationValue);
+        verify(configurationBuilder).property(JAXRS.Configuration.SSL_CLIENT_AUTHENTICATION, someSSLClientAuthenticationValue);
     }
 
     /**
-     * Assert that {@code Configuration}'s convenience methods delegate to its
-     * generic {@code property(name)} method using the <em>right</em> property name.
+     * Assert that {@code Configuration}'s convenience methods delegate to its generic {@code property(name)} method using
+     * the <em>right</em> property name.
      *
      * @since 2.2
      */
@@ -168,8 +164,7 @@ public final class JAXRSTest {
         given(configuration.property(JAXRS.Configuration.PORT)).willReturn(somePortValue);
         given(configuration.property(JAXRS.Configuration.ROOT_PATH)).willReturn(someRootPathValue);
         given(configuration.property(JAXRS.Configuration.SSL_CONTEXT)).willReturn(someSSLContextValue);
-        given(configuration.property(JAXRS.Configuration.SSL_CLIENT_AUTHENTICATION))
-                .willReturn(someSSLClientAuthenticationValue);
+        given(configuration.property(JAXRS.Configuration.SSL_CLIENT_AUTHENTICATION)).willReturn(someSSLClientAuthenticationValue);
 
         // when
         final String actualProtocolValue = configuration.protocol();

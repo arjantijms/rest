@@ -68,14 +68,9 @@ public class SpecExamples {
 
     public void fluentMethodChaining() {
         Client client = ClientBuilder.newClient();
-        Response res = client.target("http://example.org/hello")
-                .request("text/plain").get();
+        Response res = client.target("http://example.org/hello").request("text/plain").get();
 
-        Response res2 = client.target("http://example.org/hello")
-                .queryParam("MyParam", "...")
-                .request("text/plain")
-                .header("MyHeader", "...")
-                .get();
+        Response res2 = client.target("http://example.org/hello").queryParam("MyParam", "...").request("text/plain").header("MyHeader", "...").get();
     }
 
     public void typeRelationships() {
@@ -105,16 +100,13 @@ public class SpecExamples {
 
     public void gettingAndPostingCustomers() {
         Client client = ClientBuilder.newClient();
-        Customer c = client.target("http://examples.org/customers/123")
-                .request("application/xml").get(Customer.class);
-        Response res = client.target("http://examples.org/premium-customers/")
-                .request().post(entity(c, "application/xml"));
+        Customer c = client.target("http://examples.org/customers/123").request("application/xml").get(Customer.class);
+        Response res = client.target("http://examples.org/premium-customers/").request().post(entity(c, "application/xml"));
     }
 
     public void asyncSamples() throws Exception {
         Client client = ClientBuilder.newClient();
-        Future<Customer> fc = client.target("http://examples.org/customers/123")
-                .request("application/xml").async().get(Customer.class);
+        Future<Customer> fc = client.target("http://examples.org/customers/123").request("application/xml").async().get(Customer.class);
         Customer c = fc.get();
     }
 }

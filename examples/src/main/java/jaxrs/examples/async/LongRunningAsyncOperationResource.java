@@ -46,8 +46,7 @@ public class LongRunningAsyncOperationResource {
 
     @GET
     @Path("async")
-    public void asyncExample(
-            @Suspended final AsyncResponse ar) {
+    public void asyncExample(@Suspended final AsyncResponse ar) {
         ar.setTimeout(15, SECONDS);
         Executors.newSingleThreadExecutor().submit(new Runnable() {
             @Override
@@ -76,8 +75,7 @@ public class LongRunningAsyncOperationResource {
                     try {
                         Thread.sleep(10000);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(LongRunningAsyncOperationResource.class.getName())
-                                .log(Level.SEVERE, "Response processing interrupted", ex);
+                        Logger.getLogger(LongRunningAsyncOperationResource.class.getName()).log(Level.SEVERE, "Response processing interrupted", ex);
                     }
                     ar.resume("Complex result for " + query);
                 }
@@ -91,8 +89,7 @@ public class LongRunningAsyncOperationResource {
 
     @GET
     @Path("asyncTimeoutOverride")
-    public void overriddenTimeoutAsync(@QueryParam("timeOut") Long timeOut, @QueryParam("timeUnit") TimeUnit timeUnit,
-                                       @Suspended final AsyncResponse ar) {
+    public void overriddenTimeoutAsync(@QueryParam("timeOut") Long timeOut, @QueryParam("timeUnit") TimeUnit timeUnit, @Suspended final AsyncResponse ar) {
         if (timeOut != null && timeUnit != null) {
             ar.setTimeout(timeOut, timeUnit);
         } else {
@@ -106,8 +103,7 @@ public class LongRunningAsyncOperationResource {
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(LongRunningAsyncOperationResource.class.getName())
-                            .log(Level.SEVERE, "Response processing interrupted", ex);
+                    Logger.getLogger(LongRunningAsyncOperationResource.class.getName()).log(Level.SEVERE, "Response processing interrupted", ex);
                 }
                 ar.resume("Hello async world!");
             }
@@ -125,8 +121,7 @@ public class LongRunningAsyncOperationResource {
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(LongRunningAsyncOperationResource.class.getName())
-                            .log(Level.SEVERE, "Response processing interrupted", ex);
+                    Logger.getLogger(LongRunningAsyncOperationResource.class.getName()).log(Level.SEVERE, "Response processing interrupted", ex);
                 }
                 ar.resume("Hello async world!");
             }
@@ -138,8 +133,7 @@ public class LongRunningAsyncOperationResource {
             public void run() {
                 while (!ar.isDone()) {
                 }
-                Logger.getLogger(LongRunningAsyncOperationResource.class.getName())
-                        .log(Level.INFO, "Context resumed with a response!");
+                Logger.getLogger(LongRunningAsyncOperationResource.class.getName()).log(Level.INFO, "Context resumed with a response!");
             }
         });
     }

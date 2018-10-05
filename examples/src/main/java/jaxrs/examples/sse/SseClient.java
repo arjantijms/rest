@@ -32,9 +32,7 @@ public class SseClient {
 
         // EventSource#register(Consumer<InboundSseEvent>)
         // consumes all events, writes then on standard out (System.out::println)
-        try (final SseEventSource eventSource =
-                     SseEventSource.target(target)
-                                   .build()) {
+        try (final SseEventSource eventSource = SseEventSource.target(target).build()) {
 
             eventSource.register(System.out::println);
             eventSource.open();
@@ -69,10 +67,7 @@ public class SseClient {
         // registers onComplete callback, which will print out a message "There will be no further events."
         try (final SseEventSource eventSource = SseEventSource.target(target).build()) {
 
-            eventSource.register(
-                    System.out::println,
-                    Throwable::printStackTrace,
-                    () -> System.out.println("There will be no further events."));
+            eventSource.register(System.out::println, Throwable::printStackTrace, () -> System.out.println("There will be no further events."));
             eventSource.open();
 
             for (int counter = 0; counter < 5; counter++) {

@@ -79,13 +79,11 @@ public class ServerSentEventsResource {
     @POST
     @Path("domains/{id}")
     @Produces(MediaType.SERVER_SENT_EVENTS)
-    public void startDomain(@PathParam("id") final String id,
-                            @Context SseEventSink eventSink) {
+    public void startDomain(@PathParam("id") final String id, @Context SseEventSink eventSink) {
 
         executorService.submit(() -> {
             try {
-                eventSink.send(sse.newEventBuilder().name("domain-progress")
-                                  .data(String.class, "starting domain " + id + " ...").build());
+                eventSink.send(sse.newEventBuilder().name("domain-progress").data(String.class, "starting domain " + id + " ...").build());
                 Thread.sleep(200);
                 eventSink.send(sse.newEvent("domain-progress", "50%"));
                 Thread.sleep(200);

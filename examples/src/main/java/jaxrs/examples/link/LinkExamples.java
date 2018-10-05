@@ -41,15 +41,13 @@ public class LinkExamples {
      * @return response.
      */
     public Response example2() {
-        Link link = Link.fromUri("http://foo.bar/employee/john").rel("manager").rel("friend")
-                .title("employee").type("application/xml").build();
+        Link link = Link.fromUri("http://foo.bar/employee/john").rel("manager").rel("friend").title("employee").type("application/xml").build();
         System.out.println("Link = " + link);
         return Response.ok().links(link).build();
     }
 
     /**
-     * 1-step process: Build Response and add a link directly to it
-     * using either a String or a URI.
+     * 1-step process: Build Response and add a link directly to it using either a String or a URI.
      *
      * @return response.
      * @throws URISyntaxException
@@ -57,7 +55,7 @@ public class LinkExamples {
     public Response example3() throws URISyntaxException {
         Response r;
         r = Response.ok().link("http://foo.bar/employee/john", "manager").build();
-        r = Response.ok().link(new URI("http://foo.bar/employee/john"),"manager").build();
+        r = Response.ok().link(new URI("http://foo.bar/employee/john"), "manager").build();
         return r;
     }
 }

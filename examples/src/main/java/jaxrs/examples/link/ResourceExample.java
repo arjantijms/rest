@@ -34,10 +34,9 @@ public class ResourceExample {
     private UriInfo uriInfo;
 
     @GET
-    @Produces({"application/xml", "application/json"})
+    @Produces({ "application/xml", "application/json" })
     public MyModel getIt() {
-        Link self = Link.fromMethod(getClass(), "getIt").baseUri(uriInfo.getBaseUri())
-                .rel("self").buildRelativized(uriInfo.getRequestUri());
+        Link self = Link.fromMethod(getClass(), "getIt").baseUri(uriInfo.getBaseUri()).rel("self").buildRelativized(uriInfo.getRequestUri());
         MyModel m = new MyModel();
         m.setLink(self);
         m.setAtomLink(self);

@@ -16,8 +16,7 @@ import javax.validation.Payload;
 /**
  * @author Santiago Pericas-Geertsen
  */
-public class NotNull extends AnnotationLiteral<javax.validation.constraints.NotNull>
-        implements javax.validation.constraints.NotNull {
+public class NotNull extends AnnotationLiteral<javax.validation.constraints.NotNull> implements javax.validation.constraints.NotNull {
 
     private static final long serialVersionUID = -5352564534866654470L;
 

@@ -17,9 +17,8 @@ import javax.ws.rs.core.FeatureContext;
 import javax.ws.rs.ext.Provider;
 
 /**
- * Dynamic feature for a enabling a logging request/response post-matching filter
- * that dynamically decides to bind the logging filter only to GET processing
- * resource methods on all subclasses of {@link MyResourceClass} and the
+ * Dynamic feature for a enabling a logging request/response post-matching filter that dynamically decides to bind the
+ * logging filter only to GET processing resource methods on all subclasses of {@link MyResourceClass} and the
  * {@code MyResourceClass} itself.
  *
  * @author Santiago Pericas-Geertsen
@@ -30,8 +29,7 @@ public final class DynamicLoggingFilterFeature implements DynamicFeature {
 
     @Override
     public void configure(ResourceInfo resourceInfo, FeatureContext context) {
-        if (MyResourceClass.class.isAssignableFrom(resourceInfo.getResourceClass())
-                && resourceInfo.getResourceMethod().isAnnotationPresent(GET.class)) {
+        if (MyResourceClass.class.isAssignableFrom(resourceInfo.getResourceClass()) && resourceInfo.getResourceMethod().isAnnotationPresent(GET.class)) {
             context.register(new LoggingFilter());
         }
     }
